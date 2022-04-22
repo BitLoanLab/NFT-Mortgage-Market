@@ -1,3 +1,4 @@
+
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.0;
 
@@ -19,8 +20,9 @@ import "../library/TokenSet.sol";
             uint amount;
     }
     
-    constructor() {
+    constructor()  {
         manger = msg.sender;
+
     }
     modifier onlyAdmin(){
         require(msg.sender == manger , "u are not manger");
@@ -40,12 +42,14 @@ import "../library/TokenSet.sol";
     }
 
     address public creator;
-    uint public Lengths;
+    uint Lengths;
     Deposit[] private list ;
     mapping(address=>Set.TokenIdSet) userToken ;
     mapping (uint256 => address) private _tokenApprovals;// tokenId----The authorized address
     //When reauthorizing, the mapping from the owner to the operator
     mapping (address => mapping (address => bool)) private _operatorApprovals;
+    
+    mapping(uint => string) public tokenName;
     
     /*
     * Issue additional tokens, restricting only banks from issuing additional tokens (_isBank) to obtain credentials.
@@ -67,7 +71,7 @@ import "../library/TokenSet.sol";
         list.push(record);
         Lengths=list.length;
         userToken[to].add(tokenId);
-
+        tokenName[tokenId] = name_;
         return  tokenId;
     }
  
@@ -80,11 +84,10 @@ import "../library/TokenSet.sol";
         emit Transfer(owner, address(0), tokenId);
     }
     
-
+ 
     function ownerOf(uint256 _tokenId) public view  returns (address owner){
         owner=list[_tokenId-1].owner;
     }
-
 
     function balanceOf(address _owner) public view  returns (uint balance){
         balance=userToken[_owner].length();
@@ -107,7 +110,6 @@ import "../library/TokenSet.sol";
     function tokenMetadata(uint _tokenId) public view  returns (Deposit memory ) {
         return list[_tokenId-1];
     }
-
 
     function transfer(address _from, address _to, uint256 _tokenId) public  {
         require(ownerOf(_tokenId) == _from, "ERC721: transfer of token that is not own");
@@ -154,7 +156,6 @@ import "../library/TokenSet.sol";
     function safeTransferFrom(address from, address to, uint256 tokenId) public  virtual  {
         safeTransferFrom(from, to, tokenId, "");
     }
-    
     
      function _checkOnERC721Received(address from, address to, uint256 tokenId, bytes memory _data)
         private returns (bool)

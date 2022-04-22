@@ -105,7 +105,6 @@ contract LoanMarket {
     function repayment(uint id,uint value) public {
         require(value != 0 , "value error");
         require(msg.sender != address(0),"not 0 address");
-
         if( block.timestamp <= list[id-1].expireTime){
             uint usedDay = (list[id-1].day - (list[id-1].expireTime - block.timestamp)/86400);
             require(value >= list[id-1].money + list[id-1].money*(list[id-1].dayRate/100)*usedDay ,"value is error");
