@@ -3,6 +3,11 @@
 
 Bitloan
 
+
+## Video link
+
+https://youtu.be/K_lXgrcOcBk
+
 ## Submission links
 
 GitHub repository: https://github.com/Narwhalk  
