@@ -5,11 +5,11 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "../library/TokenSet.sol";
 
-    contract RbtDeposit {
+    contract BLTDeposit {
         using Set for Set.TokenIdSet;
         
-        string public name = "RBD";
-        string public symbol = "RBD";
+        string public name = "BLD";
+        string public symbol = "BLD";
         address manger;
         struct Deposit{
             address owner;
